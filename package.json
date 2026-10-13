@@ -1,0 +1,19 @@
+{
+  "name": "zona-de-trabajo",
+  "version": "1.0.0",
+  "description": "Zona de trabajo: Notion, Claude, Canvas y una terminal en una sola ventana",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Ruahu",
+  "license": "MIT",
+  "dependencies": {
+    "@xterm/addon-fit": "0.11.0",
+    "@xterm/xterm": "6.0.0",
+    "node-pty": "1.1.0"
+  },
+  "devDependencies": {
+    "electron": "44.7.1"
+  }
+}

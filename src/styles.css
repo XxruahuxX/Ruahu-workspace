@@ -1,0 +1,46 @@
+:root {
+  --bg: #1e1f22;
+  --panel: #2b2d31;
+  --hover: #3a3c42;
+  --active: #5865f2;
+  --text: #e6e6e6;
+  --muted: #9a9ca3;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font-family: "Segoe UI", system-ui, sans-serif; }
+body { display: flex; overflow: hidden; }
+
+#sidebar { width: 72px; background: var(--panel); display: flex; flex-direction: column; align-items: center; padding: 8px 0; gap: 6px; }
+#tabs { display: flex; flex-direction: column; gap: 6px; }
+.spacer { flex: 1; }
+.tab { width: 60px; height: 56px; border: 0; border-radius: 10px; background: transparent; color: var(--text); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+.tab span { font-size: 22px; }
+.tab small { font-size: 10px; color: var(--muted); }
+.tab:hover { background: var(--hover); }
+.tab.active { background: var(--active); }
+.tab.active small { color: #fff; }
+
+main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+#toolbar { height: 36px; display: flex; align-items: center; gap: 4px; padding: 0 8px; background: var(--panel); border-bottom: 1px solid #000; }
+#toolbar button { background: transparent; border: 0; color: var(--text); font-size: 16px; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; }
+#toolbar button:hover { background: var(--hover); }
+#url { flex: 1; font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 8px; }
+body.no-web #toolbar { display: none; }
+
+#views { flex: 1; position: relative; }
+#views webview { position: absolute; inset: 0; width: 100%; height: 100%; visibility: hidden; }
+#views webview.active { visibility: visible; }
+body.no-web #views { display: none; }
+
+.view { display: none; flex: 1; flex-direction: column; min-height: 0; }
+.view.active { display: flex; }
+
+#terminal .bar { display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; background: var(--panel); font-size: 13px; }
+#terminal .bar button { background: var(--hover); color: var(--text); border: 0; border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+#xterm { flex: 1; padding: 6px; background: #0c0c0c; min-height: 0; }
+
+#ajustes { padding: 24px 32px; overflow: auto; }
+#ajustes h1 { margin-top: 0; }
+#settings label { display: block; margin: 12px 0 4px; color: var(--muted); font-size: 13px; }
+#settings input { width: 100%; max-width: 600px; padding: 8px; border-radius: 6px; border: 1px solid #444; background: var(--panel); color: var(--text); }
+#settings button { margin-top: 16px; padding: 8px 16px; border: 0; border-radius: 6px; background: var(--active); color: #fff; cursor: pointer; }

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'">
+  <title>Zona de trabajo</title>
+  <link rel="stylesheet" href="../node_modules/@xterm/xterm/css/xterm.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav id="sidebar">
+    <div id="tabs"></div>
+    <button class="tab" data-id="terminal" title="Terminal (Ctrl+4)"><span>💻</span><small>Terminal</small></button>
+    <div class="spacer"></div>
+    <button class="tab" data-id="ajustes" title="Ajustes"><span>⚙️</span><small>Ajustes</small></button>
+  </nav>
+
+  <main>
+    <header id="toolbar">
+      <button id="back" title="Atrás">←</button>
+      <button id="forward" title="Adelante">→</button>
+      <button id="reload" title="Recargar">⟳</button>
+      <button id="home" title="Inicio">⌂</button>
+      <span id="url"></span>
+      <button id="external" title="Abrir en el navegador">↗</button>
+    </header>
+
+    <div id="views"></div>
+
+    <section id="terminal" class="view">
+      <div class="bar">
+        <span>Terminal</span>
+        <button id="term-restart">Reiniciar</button>
+      </div>
+      <div id="xterm"></div>
+    </section>
+
+    <section id="ajustes" class="view">
+      <h1>Ajustes</h1>
+      <p>Cambia las direcciones si alguna no es la tuya. Se guarda al pulsar "Guardar".</p>
+      <form id="settings"></form>
+      <p id="saved" hidden>Guardado. Reinicia la app para aplicar los cambios.</p>
+    </section>
+  </main>
+
+  <script src="../node_modules/@xterm/xterm/lib/xterm.js"></script>
+  <script src="../node_modules/@xterm/addon-fit/lib/addon-fit.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>
