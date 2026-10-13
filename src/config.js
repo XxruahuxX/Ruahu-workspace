@@ -5,9 +5,9 @@ const path = require('path');
 
 const DEFAULTS = {
   sites: [
-    { id: 'notion', name: 'Notion', icon: '📝', url: 'https://www.notion.so' },
-    { id: 'claude', name: 'Claude', icon: '✳️', url: 'https://claude.ai' },
-    { id: 'canvas', name: 'Canvas', icon: '🎓', url: 'https://universidadeuropea.instructure.com' }
+    { id: 'notion', name: 'Notion', url: 'https://www.notion.so' },
+    { id: 'claude', name: 'Claude', url: 'https://claude.ai' },
+    { id: 'canvas', name: 'Canvas', url: 'https://universidadeuropea.instructure.com' }
   ],
   shell: process.platform === 'win32' ? 'powershell.exe' : (process.env.SHELL || 'bash')
 };
@@ -18,7 +18,7 @@ function load() {
   try {
     return { ...DEFAULTS, ...JSON.parse(fs.readFileSync(file(), 'utf8')) };
   } catch {
-    return DEFAULTS;
+    return structuredClone(DEFAULTS);
   }
 }
 

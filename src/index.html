@@ -2,49 +2,50 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self' data:; worker-src 'self' blob:">
   <title>Zona de trabajo</title>
   <link rel="stylesheet" href="../node_modules/@xterm/xterm/css/xterm.css">
   <link rel="stylesheet" href="styles.css">
+  <script src="../node_modules/@xterm/xterm/lib/xterm.js" defer></script>
+  <script src="../node_modules/@xterm/addon-fit/lib/addon-fit.js" defer></script>
 </head>
 <body>
   <nav id="sidebar">
-    <div id="tabs"></div>
-    <button class="tab" data-id="terminal" title="Terminal (Ctrl+4)"><span>💻</span><small>Terminal</small></button>
-    <div class="spacer"></div>
-    <button class="tab" data-id="ajustes" title="Ajustes"><span>⚙️</span><small>Ajustes</small></button>
+    <div class="brand" title="Zona de trabajo">Z</div>
+    <div id="mods"></div>
+    <button id="btn-add" class="side-btn add"><svg class="i" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span class="tip">Añadir web</span></button>
+    <div class="grow"></div>
+    <button id="btn-settings" class="side-btn"><svg class="i" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span class="tip">Ajustes</span></button>
   </nav>
 
-  <main>
-    <header id="toolbar">
-      <button id="back" title="Atrás">←</button>
-      <button id="forward" title="Adelante">→</button>
-      <button id="reload" title="Recargar">⟳</button>
-      <button id="home" title="Inicio">⌂</button>
-      <span id="url"></span>
-      <button id="external" title="Abrir en el navegador">↗</button>
+  <div id="main">
+    <header id="topbar">
+      <span class="title">Zona de trabajo</span>
+      <div id="presets"></div>
+      <div class="grow"></div>
+      <button id="btn-split" class="btn ghost sm" title="Abrir otro panel al lado (Ctrl+\)">
+        <svg class="i" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 3v18"/></svg><span>Dividir</span></button>
+      <button id="btn-dock" class="btn ghost sm" title="Mostrar u ocultar la terminal (Ctrl+Ñ)">
+        <svg class="i" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg><span>Terminal</span></button>
     </header>
 
-    <div id="views"></div>
+    <div id="workspace">
+      <div id="panes"></div>
+      <div id="stage"></div>
+    </div>
 
-    <section id="terminal" class="view">
-      <div class="bar">
-        <span>Terminal</span>
-        <button id="term-restart">Reiniciar</button>
+    <section id="dock" hidden>
+      <div id="dock-split" class="splitter h"></div>
+      <div class="dock-head">
+        <span class="dock-title">Terminal</span>
+        <div class="grow"></div>
+        <button id="dock-restart" class="btn ghost sm">Reiniciar</button>
+        <button id="dock-close" class="icon-btn" title="Ocultar"><svg class="i" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       </div>
       <div id="xterm"></div>
     </section>
+  </div>
 
-    <section id="ajustes" class="view">
-      <h1>Ajustes</h1>
-      <p>Cambia las direcciones si alguna no es la tuya. Se guarda al pulsar "Guardar".</p>
-      <form id="settings"></form>
-      <p id="saved" hidden>Guardado. Reinicia la app para aplicar los cambios.</p>
-    </section>
-  </main>
-
-  <script src="../node_modules/@xterm/xterm/lib/xterm.js"></script>
-  <script src="../node_modules/@xterm/addon-fit/lib/addon-fit.js"></script>
-  <script src="renderer.js"></script>
+  <script type="module" src="renderer/app.js"></script>
 </body>
 </html>
