@@ -17,8 +17,8 @@ Hecha con [Electron](https://www.electronjs.org/) (JavaScript). Notion, Claude y
 ## Ejecutar
 
 ```powershell
-git clone https://github.com/XxruahuxX/zona-de-trabajo.git
-cd zona-de-trabajo
+git clone https://github.com/XxruahuxX/Ruahu-workspace.git
+cd Ruahu-workspace
 npm install
 npm start
 ```
